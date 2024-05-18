@@ -1,0 +1,8 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql:///BigLab
+    driver-class-name: com.mysql.cj.jdbc.Driver
