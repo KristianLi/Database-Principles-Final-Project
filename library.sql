@@ -9,7 +9,7 @@ CREATE TABLE login (
     password VARCHAR(255) NOT NULL,
     card_num VARCHAR(30) NOT NULL,
     isAdmin TINYINT(1) NOT null,
-    FOREIGN KEY (card_num) REFERENCES reader_info(card_num),
+    FOREIGN KEY (card_num) REFERENCES reader_info(card_num)
 );
 
 CREATE TABLE book_info (
