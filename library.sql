@@ -37,9 +37,9 @@ CREATE TABLE book_info (
                            book_name VARCHAR(255) NOT NULL,
                            publisher VARCHAR(255) NOT NULL,
                            author VARCHAR(255) NOT NULL,
-                           total_num INT NOT NULL,
+                           avai_num INT NOT NULL,
                            borrow_num INT NOT NULL,
-                           is_borrow TINYINT NOT NULL -- 1: 可借，0: 不可借
+                           can_borrow TINYINT NOT NULL -- 1: 可借，0: 不可借
 );
 
 
