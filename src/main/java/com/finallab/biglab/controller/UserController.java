@@ -4,12 +4,14 @@ import com.finallab.biglab.pojo.Result;
 import com.finallab.biglab.pojo.User;
 import com.finallab.biglab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:8000") // 允许来自 http://localhost:8000 的跨域请求
 public class UserController {
     @Autowired
     private UserService userService;
