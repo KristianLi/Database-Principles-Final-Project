@@ -1,6 +1,6 @@
 package com.finallab.biglab.pojo;
 import lombok.Data;
-
+@Data
 public class Reader {
     private String card_num;
     private String name;

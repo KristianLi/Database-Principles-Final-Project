@@ -13,7 +13,7 @@ export default new Router({
             component: UserLogin
         },
         {
-            path: '/book-management/:account_id',
+            path: '/book-management/:account/:password',
             name: 'BookManagement',
             component: BookManagement
         }

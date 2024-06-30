@@ -11,7 +11,7 @@ public class ReaderServicelmpl implements ReaderService {
     private ReaderMapper readerMapper;
 
     @Override
-    public Reader getReaderInfo(String account){
-        return readerMapper.getReaderInfo(account);
+    public Reader getReaderInfo(String account,String password){
+        return readerMapper.getReaderInfo(account,password);
     }
 }

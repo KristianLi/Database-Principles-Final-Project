@@ -1,26 +1,20 @@
 <template>
   <div class="book-management">
     <h2>Book Management System</h2>
-    <div v-if="userInfo">
+    <div v-if="reader">
       <h3>个人中心</h3>
-      <p><strong>账号：</strong>{{ userInfo.account }}</p>
-      <p><strong>姓名：</strong>{{ userInfo.name }}</p>
-      <p><strong>性别：</strong>{{ userInfo.gender }}</p>
-      <p><strong>职位：</strong>{{ userInfo.title }}</p>
-      <p><strong>部门：</strong>{{ userInfo.department }}</p>
-      <p><strong>电话：</strong>{{ userInfo.phone }}</p>
-      <h3>借阅的书籍</h3>
-      <ul>
-        <li v-for="book in borrowedBooks" :key="book.ISBN">
-          <p><strong>书名：</strong>{{ book.book_name }}</p>
-          <p><strong>作者：</strong>{{ book.author }}</p>
-          <p><strong>出版社：</strong>{{ book.publisher }}</p>
-          <p><strong>借阅日期：</strong>{{ book.borrow_date }}</p>
-          <p><strong>到期日期：</strong>{{ book.due_date }}</p>
-        </li>
-      </ul>
+      <p><strong>账号:</strong> {{ account }}</p>
+      <p><strong>姓名:</strong> {{ reader.name }}</p>
+      <p><strong>性别:</strong> {{ reader.gender }}</p>
+      <p><strong>职称:</strong> {{ reader.title }}</p>
+      <p><strong>可借书数:</strong> {{ reader.borrow_num }}</p>
+      <p><strong>已借书数:</strong> {{ reader.borrowed_num }}</p>
+      <p><strong>部门:</strong> {{ reader.department }}</p>
+      <p><strong>电话:</strong> {{ reader.phone }}</p>
     </div>
-    <p v-else>Loading...</p>
+    <div v-else>
+      <p>加载中...</p>
+    </div>
   </div>
 </template>
 
@@ -31,24 +25,30 @@ export default {
   name: 'BookManagement',
   data() {
     return {
-      userInfo: null,
-      borrowedBooks: []
+      account: this.$route.params.account,
+      password:this.$route.params.password,
+      reader: null,
+      errorMessage: ''
     };
   },
-  async created() {
-    // 假设你已经在登录成功后保存了用户的账号信息
-    const account = this.$route.query.account;
-
-    // 获取用户信息
-    try {
-      const userResponse = await axios.get(`http://localhost:8080/user/info?account=${account}`);
-      this.userInfo = userResponse.data;
-
-      // 获取用户借阅的书籍信息
-      const booksResponse = await axios.get(`http://localhost:8080/user/borrowed-books?card_num=${this.userInfo.card_num}`);
-      this.borrowedBooks = booksResponse.data;
-    } catch (error) {
-      console.error('There was an error fetching the user info or borrowed books', error);
+  created() {
+    this.fetchReaderInfo();
+  },
+  methods: {
+    async fetchReaderInfo() {
+      try {
+        const response = await axios.get(`http://localhost:8080/reader/info`, {
+          params: {account: this.account,password:this.password}
+        });
+        if (response.data.code === 0) {
+          this.reader = response.data.data;
+        } else {
+          this.errorMessage = `Failed to fetch reader info: ${response.data.message}`;
+        }
+      } catch (error) {
+        console.error('There was an error!', error);
+        this.errorMessage = 'An error occurred while fetching reader info.';
+      }
     }
   }
 };
