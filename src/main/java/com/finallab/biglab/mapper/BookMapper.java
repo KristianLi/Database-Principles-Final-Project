@@ -26,6 +26,8 @@ public interface BookMapper {
     public void updateReturnInfo(String ISBN, String card_num, String return_date, String fine);
     @Select("select due_date from borrow_info where ISBN=#{ISBN} and card_num=#{card_num} and return_date is null")
     public String FineCalculation(String ISBN, String card_num);
+    @Select("select sum(fine) from borrow_info where card_num=#{card_num} and return_date is not null")
+    public float getFine(String card_num);
 
     @Select("select isAdmin from login where account=#{account}")
     int isAdmin(String account);

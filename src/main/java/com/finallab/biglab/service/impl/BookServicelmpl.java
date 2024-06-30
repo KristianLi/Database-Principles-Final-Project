@@ -34,6 +34,10 @@ public class BookServicelmpl implements BookService {
         return bookMapper.BorrowCheck(ISBN);
     }
     @Override
+    public float getFine(String card_num){
+        return bookMapper.getFine(card_num);
+    }
+    @Override
     public Book AlreadyBorrowed(String ISBN, String card_num){
         return bookMapper.AlreadyBorrowed(ISBN, card_num);
     }

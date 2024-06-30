@@ -44,6 +44,9 @@ public class BookController {
     }
     @PostMapping("/borrow")
     public Result<String> borrowBook(String ISBN,String card_num) {
+        if(bookService.getFine(card_num) > 0) {
+            return Result.error("您有未缴纳的罚金，请先缴纳罚金");
+        }
         if (bookService.BorrowCheck(ISBN) == null) {
             return Result.error("该书籍已借完");
         }
