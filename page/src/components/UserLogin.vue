@@ -3,8 +3,8 @@
     <h2>Login</h2>
     <form @submit.prevent="login">
       <div>
-        <label for="account_id">account_id:</label>
-        <input type="text" v-model="account_id" id="account_id" required>
+        <label for="account">Username:</label>
+        <input type="text" v-model="account" id="account" required>
       </div>
       <div>
         <label for="password">Password:</label>
@@ -23,7 +23,7 @@ export default {
   name: 'UserLogin',
   data() {
     return {
-      account_id: '',
+      account: '',
       password: '',
       message: ''
     };
@@ -31,7 +31,7 @@ export default {
   methods: {
     async login() {
       const formData = new FormData();
-      formData.append('account_id', this.account_id);
+      formData.append('account', this.account);
       formData.append('password', this.password);
 
       try {
@@ -42,7 +42,8 @@ export default {
         });
         if (response.data.code === 0) {
           this.message = response.data.data; // 显示"登陆成功"
-          this.$router.push('/book-management'); // 跳转到图书管理系统页面
+          const account=this.account;
+          this.$router.push(`/book-management/${account}`); // 跳转到图书管理系统页面
         } else {
           this.message = `Login failed: ${response.data.message}`;
         }

@@ -1,13 +1,11 @@
-// src/router/index.js
 import Vue from 'vue';
 import Router from 'vue-router';
-import UserLogin from '@/components/UserLogin';
-import BookManagement from '@/components/BookManagement';
+import UserLogin from '@/components/UserLogin.vue';
+import BookManagement from '@/components/BookManagement.vue';
 
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history', // 可选项：hash 或 history 模式
     routes: [
         {
             path: '/',
@@ -15,7 +13,7 @@ export default new Router({
             component: UserLogin
         },
         {
-            path: '/book-management',
+            path: '/book-management/:account_id',
             name: 'BookManagement',
             component: BookManagement
         }
