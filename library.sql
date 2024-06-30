@@ -4,7 +4,6 @@
 use library_db;
 
 #   drop table book_info, borrow_info, login, reader_info;
-
 -- 先建reader_info表
 
 -- insert值时候，只需要card_num和name就够了

@@ -7,7 +7,7 @@ public class Book {
     private String book_name;
     private String publisher;
     private String author;
-    private int total_num;
+    private int avai_num;
     private int borrow_num;
     private int can_borrow;
 }
