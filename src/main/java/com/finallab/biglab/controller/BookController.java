@@ -21,7 +21,7 @@ public class BookController {
         if (book != null) {
             return Result.success(book);
         } else {
-            return Result.error("Book not found");
+            return Result.error("未找到书籍");
         }
     }
     @GetMapping("/name")
@@ -30,7 +30,7 @@ public class BookController {
         if (book != null) {
             return Result.success(book);
         } else {
-            return Result.error("Book not found");
+            return Result.error("未找到书籍");
         }
     }
     @GetMapping("/all")
@@ -39,16 +39,16 @@ public class BookController {
         if (books != null) {
             return Result.success(books);
         } else {
-            return Result.error("Book not found");
+            return Result.error("未找到书籍");
         }
     }
     @PostMapping("/borrow")
     public Result<String> borrowBook(String ISBN,String card_num) {
         if (bookService.BorrowCheck(ISBN) == null) {
-            return Result.error(ISBN + " is not available");
+            return Result.error("该书籍已借完");
         }
         if (bookService.AlreadyBorrowed(ISBN, card_num) != null) {
-            return Result.error("You have already borrowed this book");
+            return Result.error("您已借阅此书");
         }
         bookService.borrowBook(ISBN);
         // 获取当前日期
@@ -60,7 +60,7 @@ public class BookController {
         String formattedDate = currentDate.format(formatter);
         String formattedDueDate = dueDate.format(formatter);
         bookService.updateBorrowInfo(card_num, ISBN, formattedDate, formattedDueDate);
-        return Result.success("Borrow successfully");
+        return Result.success("成功借阅书籍");
     }
     @PostMapping("/return")
     public Result<String> returnBook(String ISBN, String card_num) {
@@ -87,45 +87,45 @@ public class BookController {
         // 将日期格式化为字符串
         String formattedDate = currentDate.format(formatter);
         bookService.updateReturnInfo(ISBN, card_num, formattedDate, String.valueOf(fine));
-        return Result.success("Return successfully");
+        return Result.success("归还成功");
     }
     @PostMapping("/addbook")
     public Result<String> AddBook(String ISBN, String book_name, String publisher, String author, int avai_num, int borrow_num, int can_borrow,String account) {
         if(bookService.isAdmin(account)==0){
-            return Result.error("You are not an administrator");
+            return Result.error("无权限添加书籍");
         }
         if(ISBN == null || book_name == null || publisher == null || author == null || avai_num < 0 || borrow_num < 0 || can_borrow < 0) {
-            return Result.error("Invalid input");
+            return Result.error("非法输入");
         }
         if(bookService.getBookInfoByISBN(ISBN) != null) {
-            return Result.error("Book already exists");
+            return Result.error("书籍已存在");
         }
         bookService.addBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
-        return Result.success("Add book successfully");
+        return Result.success("添加书籍成功");
     }
     @PostMapping("/updatebook")
     public Result<String> UpdateBook(String ISBN, String book_name, String publisher, String author, int avai_num, int borrow_num, int can_borrow,String account) {
         if(bookService.isAdmin(account)==0){
-            return Result.error("You are not an administrator");
+            return Result.error("无权限修改书籍");
         }
         if(ISBN == null || book_name == null || publisher == null || author == null || avai_num < 0 || borrow_num < 0 || can_borrow < 0) {
-            return Result.error("Invalid input");
+            return Result.error("非法输入");
         }
         if(bookService.getBookInfoByISBN(ISBN) == null) {
-            return Result.error("Book not found");
+            return Result.error("未找到书籍");
         }
         bookService.updateBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
-        return Result.success("Update book successfully");
+        return Result.success("更新书籍信息成功");
     }
     @PostMapping("/deletebook")
     public Result<String> DeleteBook(String ISBN,String account) {
         if(bookService.isAdmin(account)==0){
-            return Result.error("You are not an administrator");
+            return Result.error("无权限删除书籍");
         }
         if(bookService.getBookInfoByISBN(ISBN) == null) {
-            return Result.error("Book not found");
+            return Result.error("未找到书籍");
         }
         bookService.deleteBook(ISBN);
-        return Result.success("Delete book successfully");
+        return Result.success("删除书籍成功");
     }
 }

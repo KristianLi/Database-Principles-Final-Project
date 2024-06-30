@@ -14,4 +14,13 @@ public class ReaderServicelmpl implements ReaderService {
     public Reader getReaderInfo(String account,String password){
         return readerMapper.getReaderInfo(account,password);
     }
+    @Override
+    public void deleteReader(String card_num){
+        readerMapper.deleteReader(card_num);
+        return;
+    }
+    @Override
+    public int isAdmin(String account){
+        return readerMapper.isAdmin(account);
+    }
 }

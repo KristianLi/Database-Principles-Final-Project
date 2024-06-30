@@ -13,4 +13,8 @@ public interface UserMapper {
     void add(String account, String password);
     @Select("select isAdmin from login where account=#{account}")
     int isAdmin(String account);
+    @Select("update login set password=#{password} where account=#{account}")
+    void updatePassword(String account, String password);
+    @Select("delete from login where account=#{account}")
+    void deleteUser(String account);
 }

@@ -8,4 +8,6 @@ public interface UserService {
     void register(String accout_id, String password);
 
     int isAdmin(String account);
+    void updatePassword(String account, String password);
+    void deleteUser(String account);
 }

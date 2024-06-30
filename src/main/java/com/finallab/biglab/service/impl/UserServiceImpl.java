@@ -24,4 +24,14 @@ public class UserServiceImpl implements UserService {
     public int isAdmin(String account){
         return userMapper.isAdmin(account);
     }
+    @Override
+    public void updatePassword(String account,String password){
+        userMapper.updatePassword(account,password);
+        return;
+    }
+    @Override
+    public void deleteUser(String account){
+        userMapper.deleteUser(account);
+        return;
+    }
 }

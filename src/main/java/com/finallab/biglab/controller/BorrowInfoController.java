@@ -18,7 +18,7 @@ public class BorrowInfoController {
         if (borrows != null) {
             return Result.success(borrows);
         } else {
-            return Result.error("Borrow not found");
+            return Result.error("未查询到借阅信息");
         }
     }
 }

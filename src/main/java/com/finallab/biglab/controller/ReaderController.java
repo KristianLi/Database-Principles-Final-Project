@@ -21,4 +21,12 @@ public class ReaderController {
             return Result.error("Reader not found");
         }
     }
+    @PostMapping("/delete")
+    public Result deleteReader(@RequestParam String card_num, @RequestParam String account) {
+        if(readerService.isAdmin(account) == 0) {
+            return Result.error("无权限删除用户");
+        }
+        readerService.deleteReader(card_num);
+        return Result.success();
+    }
 }

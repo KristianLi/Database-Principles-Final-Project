@@ -36,4 +36,22 @@ public class UserController {
         if(loginU.getPassword().equals(password))return Result.success("登陆成功");
         return Result.error("密码错误");
     }
+    @PostMapping("/updatePassword")
+    public Result updatePassword(String account,String password){
+        if(account==null)return Result.error("用户名不能为空");
+        if(password==null)return Result.error("密码不能为空");
+        User loginU=userService.findByaccount(account);
+        if(loginU==null)return Result.error("用户不存在");
+        userService.updatePassword(account,password);
+        return Result.success();
+    }
+    @PostMapping("/deleteUser")
+    public Result deleteUser(String account,String deleteAccount){
+        if(userService.isAdmin(account)==0)return Result.error("无权限删除用户");
+        if(deleteAccount==null)return Result.error("用户名不能为空");
+        User loginU=userService.findByaccount(deleteAccount);
+        if(loginU==null)return Result.error("用户不存在");
+        userService.deleteUser(deleteAccount);
+        return Result.success();
+    }
 }
