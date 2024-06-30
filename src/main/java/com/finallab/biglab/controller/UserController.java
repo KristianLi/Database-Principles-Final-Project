@@ -17,12 +17,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Result register(String account,String password){
+    public Result register(String account,String password,String card_num){
         if(password==null)return Result.error("密码不能为空");
         if(account==null)return Result.error("用户名不能为空");
         User u=userService.findByaccount(account);
         if(u==null){
-            userService.register(account,password);
+            userService.register(account,password,card_num);
             return Result.success();
         }
         else return Result.error("用户已存在");

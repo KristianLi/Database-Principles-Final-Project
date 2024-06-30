@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
     @Select("select * from login where account=#{account}")
     public User findByaccount(String account);
-    @Select("insert into login(account,password)"+" values(#{account},#{password})")
-    void add(String account, String password);
+    @Select("insert into login(account,password,card_num,isAdmin)"+" values(#{account},#{password},#{card_num},0)")
+    void add(String account, String password, String card_num);
     @Select("select isAdmin from login where account=#{account}")
     int isAdmin(String account);
     @Select("update login set password=#{password} where account=#{account}")

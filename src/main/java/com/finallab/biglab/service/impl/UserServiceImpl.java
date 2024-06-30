@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.findByaccount(account);
     }
     @Override
-    public void register(String account,String password){
-        userMapper.add(account,password);
+    public void register(String account,String password,String card_num){
+        userMapper.add(account,password,card_num);
         return;
     }
     @Override

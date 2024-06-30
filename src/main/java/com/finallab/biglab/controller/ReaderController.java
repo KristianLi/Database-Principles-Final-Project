@@ -29,4 +29,15 @@ public class ReaderController {
         readerService.deleteReader(card_num);
         return Result.success();
     }
+    @PostMapping("/add")
+    public Result addReader(@RequestParam String account,@RequestParam String card_num,@RequestParam String name,@RequestParam String gender,@RequestParam String title,@RequestParam String department,@RequestParam String phone) {
+        if (readerService.isAdmin(account) == 0) {
+            return Result.error("无权限添加用户");
+        }
+        if(readerService.getReaderInfoByCardNum(card_num) != null) {
+            return Result.error("该用户已存在");
+        }
+        readerService.addReader(account,card_num,name,gender,title,department,phone);
+        return Result.success();
+    }
 }

@@ -12,4 +12,8 @@ public interface ReaderMapper {
     public void deleteReader(String card_num);
     @Select("select isAdmin from login where account=#{account}")
     int isAdmin(String account);
+    @Select("insert into reader_info(card_num,name,gender,title,department,phone)"+" values(#{card_num},#{name},#{gender},#{title},#{department},#{phone})")
+    public void addReader(String account,String card_num,String name,String gender,String title,String department,String phone);
+    @Select("select * from reader_info where card_num=#{card_num}")
+    public Reader getReaderInfoByCardNum(String card_num);
 }
