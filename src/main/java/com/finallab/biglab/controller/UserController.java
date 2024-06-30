@@ -17,21 +17,21 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Result register(String username,String password){
+    public Result register(String account_id,String password){
         if(password==null)return Result.error("密码不能为空");
-        if(username==null)return Result.error("用户名不能为空");
-        User u=userService.findByUsername(username);
+        if(account_id==null)return Result.error("用户名不能为空");
+        User u=userService.findByaccount_id(account_id);
         if(u==null){
-            userService.register(username,password);
+            userService.register(account_id,password);
             return Result.success();
         }
         else return Result.error("用户已存在");
     }
     @PostMapping("/login")
-    public Result<String> login(String username,String password){
-        if(username==null)return Result.error("用户名不能为空");
+    public Result<String> login(String account_id,String password){
+        if(account_id==null)return Result.error("用户名不能为空");
         if(password==null)return Result.error("密码不能为空");
-        User loginU=userService.findByUsername(username);
+        User loginU=userService.findByaccount_id(account_id);
         if(loginU==null)return Result.error("用户不存在");
         if(loginU.getPassword().equals(password))return Result.success("登陆成功");
         return Result.error("密码错误");

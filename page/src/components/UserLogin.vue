@@ -3,8 +3,8 @@
     <h2>Login</h2>
     <form @submit.prevent="login">
       <div>
-        <label for="username">Username:</label>
-        <input type="text" v-model="username" id="username" required>
+        <label for="account_id">account_id:</label>
+        <input type="text" v-model="account_id" id="account_id" required>
       </div>
       <div>
         <label for="password">Password:</label>
@@ -23,7 +23,7 @@ export default {
   name: 'UserLogin',
   data() {
     return {
-      username: '',
+      account_id: '',
       password: '',
       message: ''
     };
@@ -31,7 +31,7 @@ export default {
   methods: {
     async login() {
       const formData = new FormData();
-      formData.append('username', this.username);
+      formData.append('account_id', this.account_id);
       formData.append('password', this.password);
 
       try {

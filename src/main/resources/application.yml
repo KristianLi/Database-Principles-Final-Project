@@ -4,5 +4,5 @@ spring:
   datasource:
     username: root
     password:
-    url: jdbc:mysql:///BigLab
+    url: jdbc:mysql:///library_db
     driver-class-name: com.mysql.cj.jdbc.Driver

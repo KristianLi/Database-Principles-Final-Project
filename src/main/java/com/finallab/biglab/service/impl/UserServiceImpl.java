@@ -12,12 +12,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User findByUsername(String username){
-        return userMapper.findByUsername(username);
+    public User findByaccount_id(String account_id){
+        return userMapper.findByaccount_id(account_id);
     }
     @Override
-    public void register(String username,String password){
-        userMapper.add(username,password);
+    public void register(String account_id,String password){
+        userMapper.add(account_id,password);
         return;
     }
 }
