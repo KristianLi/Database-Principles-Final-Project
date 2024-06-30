@@ -6,4 +6,6 @@ public interface UserService {
     public User findByaccount(String account);
 
     void register(String accout_id, String password);
+
+    int isAdmin(String account);
 }

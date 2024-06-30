@@ -29,19 +29,40 @@ public class BookServicelmpl implements BookService {
     public void updateBorrowInfo(String card_num, String ISBN, String borrow_date, String due_date){
         bookMapper.updateBorrowInfo(card_num, ISBN, borrow_date, due_date);
     }
+    @Override
     public Book BorrowCheck(String ISBN){
         return bookMapper.BorrowCheck(ISBN);
     }
+    @Override
     public Book AlreadyBorrowed(String ISBN, String card_num){
         return bookMapper.AlreadyBorrowed(ISBN, card_num);
     }
+    @Override
     public void returnBook(String ISBN, String card_num){
         bookMapper.returnBook(ISBN, card_num);
     }
+    @Override
     public void updateReturnInfo(String ISBN, String card_num, String return_date, String fine){
         bookMapper.updateReturnInfo(ISBN, card_num, return_date, fine);
     }
+    @Override
     public String FineCalculation(String ISBN, String card_num){
         return bookMapper.FineCalculation(ISBN, card_num);
+    }
+    @Override
+    public void addBook(String ISBN, String book_name, String publisher,String author,int avai_num,int borrow_num,int can_borrow){
+        bookMapper.addBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
+    }
+    @Override
+    public int isAdmin(String account){
+        return bookMapper.isAdmin(account);
+    }
+    @Override
+    public void updateBook(String ISBN, String book_name, String publisher,String author,int avai_num,int borrow_num,int can_borrow){
+        bookMapper.updateBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
+    }
+    @Override
+    public void deleteBook(String ISBN){
+        bookMapper.deleteBook(ISBN);
     }
 }

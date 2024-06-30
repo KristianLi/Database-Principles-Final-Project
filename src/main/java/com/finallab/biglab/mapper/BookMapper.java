@@ -26,4 +26,13 @@ public interface BookMapper {
     public void updateReturnInfo(String ISBN, String card_num, String return_date, String fine);
     @Select("select due_date from borrow_info where ISBN=#{ISBN} and card_num=#{card_num} and return_date is null")
     public String FineCalculation(String ISBN, String card_num);
+
+    @Select("select isAdmin from login where account=#{account}")
+    int isAdmin(String account);
+    @Select("insert into book_info(ISBN,book_name,publisher,author,avai_num,borrow_num,can_borrow) values(#{ISBN},#{book_name},#{publisher},#{author},#{avai_num},#{borrow_num},#{can_borrow})")
+    public void addBook(String ISBN, String book_name, String publisher,String author,int avai_num,int borrow_num,int can_borrow);
+    @Select("update book_info set book_name=#{book_name},publisher=#{publisher},author=#{author},avai_num=#{avai_num},borrow_num=#{borrow_num},can_borrow=#{can_borrow} where ISBN=#{ISBN}")
+    public void updateBook(String ISBN, String book_name, String publisher,String author,int avai_num,int borrow_num,int can_borrow);
+    @Select("delete from book_info where ISBN=#{ISBN}")
+    public void deleteBook(String ISBN);
 }

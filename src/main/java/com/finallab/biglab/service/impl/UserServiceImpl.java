@@ -20,4 +20,8 @@ public class UserServiceImpl implements UserService {
         userMapper.add(account,password);
         return;
     }
+    @Override
+    public int isAdmin(String account){
+        return userMapper.isAdmin(account);
+    }
 }

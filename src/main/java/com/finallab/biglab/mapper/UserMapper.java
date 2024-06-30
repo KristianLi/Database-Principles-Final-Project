@@ -11,4 +11,6 @@ public interface UserMapper {
     public User findByaccount(String account);
     @Select("insert into login(account,password)"+" values(#{account},#{password})")
     void add(String account, String password);
+    @Select("select isAdmin from login where account=#{account}")
+    int isAdmin(String account);
 }

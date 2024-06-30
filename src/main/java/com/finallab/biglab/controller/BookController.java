@@ -89,4 +89,43 @@ public class BookController {
         bookService.updateReturnInfo(ISBN, card_num, formattedDate, String.valueOf(fine));
         return Result.success("Return successfully");
     }
+    @PostMapping("/addbook")
+    public Result<String> AddBook(String ISBN, String book_name, String publisher, String author, int avai_num, int borrow_num, int can_borrow,String account) {
+        if(bookService.isAdmin(account)==0){
+            return Result.error("You are not an administrator");
+        }
+        if(ISBN == null || book_name == null || publisher == null || author == null || avai_num < 0 || borrow_num < 0 || can_borrow < 0) {
+            return Result.error("Invalid input");
+        }
+        if(bookService.getBookInfoByISBN(ISBN) != null) {
+            return Result.error("Book already exists");
+        }
+        bookService.addBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
+        return Result.success("Add book successfully");
+    }
+    @PostMapping("/updatebook")
+    public Result<String> UpdateBook(String ISBN, String book_name, String publisher, String author, int avai_num, int borrow_num, int can_borrow,String account) {
+        if(bookService.isAdmin(account)==0){
+            return Result.error("You are not an administrator");
+        }
+        if(ISBN == null || book_name == null || publisher == null || author == null || avai_num < 0 || borrow_num < 0 || can_borrow < 0) {
+            return Result.error("Invalid input");
+        }
+        if(bookService.getBookInfoByISBN(ISBN) == null) {
+            return Result.error("Book not found");
+        }
+        bookService.updateBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
+        return Result.success("Update book successfully");
+    }
+    @PostMapping("/deletebook")
+    public Result<String> DeleteBook(String ISBN,String account) {
+        if(bookService.isAdmin(account)==0){
+            return Result.error("You are not an administrator");
+        }
+        if(bookService.getBookInfoByISBN(ISBN) == null) {
+            return Result.error("Book not found");
+        }
+        bookService.deleteBook(ISBN);
+        return Result.success("Delete book successfully");
+    }
 }

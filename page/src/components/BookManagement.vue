@@ -4,6 +4,7 @@
     <div v-if="reader">
       <h3>个人中心</h3>
       <p><strong>账号:</strong> {{ account }}</p>
+      <p><strong>借书证:</strong> {{ reader.card_num }}</p>
       <p><strong>姓名:</strong> {{ reader.name }}</p>
       <p><strong>性别:</strong> {{ reader.gender }}</p>
       <p><strong>职称:</strong> {{ reader.title }}</p>
