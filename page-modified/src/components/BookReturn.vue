@@ -2,7 +2,7 @@
     <div>
         <h2>你目前的借阅信息</h2>
         <el-table :data="tableData" height="auto" border style="width: 1005px;margin-bottom: 60px;">
-            <el-table-column prop="ISBN" label="ISBN" width="200"></el-table-column>
+            <el-table-column prop="isbn" label="ISBN" width="200"></el-table-column>
             <el-table-column prop="book_name" label="书籍名称" width="200"></el-table-column>
             <el-table-column prop="borrow_date" label="借书时间" width="200"></el-table-column>
             <el-table-column prop="due_date" label="截止还书时间" width="200"></el-table-column>
@@ -12,9 +12,6 @@
         <hr>
         <h2>还书</h2>
         <el-form ref="form" :model="form" label-width="100px">
-            <el-form-item label="你的借书证号">
-                <el-input v-model="form.cardnum"></el-input>
-            </el-form-item>
             <el-form-item label="图书ISBN号">
                 <el-input v-model="form.ISBN"></el-input>
             </el-form-item>
@@ -34,18 +31,9 @@ export default {
     data() {
         return {
             form: {
-                cardnum: '',
                 ISBN: '',
             },
-            tableData: [
-                {
-                    "ISBN": "9787121302954",
-                    "book_name": "计算机网络",
-                    "borrow_date": "2023-12-01",
-                    "due_date": "2024-01-01",
-                    "fine": 0,
-                }
-            ]
+            tableData: []
         }
     },
     mounted() {
@@ -55,17 +43,35 @@ export default {
         fetchTableData() {
             // borrow_info 没有存图书名称
             // 这里后端需要根据ISBN返回图书名称
-            axios.get('getbooks???') // 替换为后端接口
+          axios.get('http://localhost:8080/borrow_info/getmy_info', {
+            params: {
+              card_num: this.$route.params.card_num
+            }
+          })
                 .then(response => {
-                    this.tableData = response.data;
+                  if (response.data.code === 0) {
+                    this.$message({
+                      message: response.data.message,
+                      type: 'success'
+                    });
+                  } else{
+                    this.$message({
+                      message: response.data.message,
+                      type: 'failed'
+                    });
+                  }
+                  if (Array.isArray(response.data.data)) {
+                    this.tableData = response.data.data;
+                  } else {
+                    this.tableData = [response.data.data];
+                  }
+                  console.log(this.$route.params.card_num);
+                  console.log(response.data);
                 })
-                .catch(error => {
-                    console.error("Error fetching the table data:", error);
-                });
         },
         onSubmit() {
             // 检查是否有空值
-            if (this.form.cardnum === '' || this.form.ISBN === '') {
+            if (this.form.ISBN === '') {
                 this.$message({
                     message: '请填写完整信息',
                     type: 'warning'
@@ -74,6 +80,22 @@ export default {
             }
             // 传给后端
             // to do
+          axios.post('http://localhost:8080/book/return', {
+            ISBN: this.form.ISBN,
+            card_num: this.$route.params.card_num
+          },{
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }
+        )
+          .then(response => {
+            this.$message({
+              message:response.data.data
+            });
+            console.log(this.form.ISBN);
+            this.fetchTableData();
+          })
         }
     }
 }

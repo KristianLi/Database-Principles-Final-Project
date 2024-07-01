@@ -58,4 +58,8 @@ public class BorrowInfoServicelmpl implements BorrowInfoService {
     public findBorrow[] getFindBorrowInfoByPhone(String phone){
         return borrowInfoMapper.getFindBorrowInfoByPhone(phone);
     }
+    @Override
+    public findBorrow[] MynotReturn(String card_num){
+        return borrowInfoMapper.MynotReturn(card_num);
+    }
 }

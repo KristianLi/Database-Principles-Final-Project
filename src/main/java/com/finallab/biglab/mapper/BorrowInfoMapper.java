@@ -29,4 +29,6 @@ public interface BorrowInfoMapper {
     public findBorrow[] getFindBorrowInfoByDepartment(String department);
     @Select("select * from borrow_info,book_info,reader_info where borrow_info.ISBN=book_info.ISBN and borrow_info.card_num=reader_info.card_num and reader_info.phone like #{phone}")
     public findBorrow[] getFindBorrowInfoByPhone(String phone);
+    @Select("select * from borrow_info,book_info,reader_info where borrow_info.ISBN=book_info.ISBN and borrow_info.card_num=reader_info.card_num and borrow_info.card_num=#{card_num} and return_date is null")
+    public findBorrow[] MynotReturn(String card_num);
 }

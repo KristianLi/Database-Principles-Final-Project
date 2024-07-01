@@ -140,4 +140,13 @@ public class BorrowInfoController {
             return Result.error("未查询到借阅信息");
         }
     }
+    @GetMapping("/getmy_info")
+    public Result<findBorrow[]> getMyInfo(@RequestParam String card_num) {
+        findBorrow[] borrows = borrowInfoService.MynotReturn(card_num);
+        if (borrows != null) {
+            return Result.success(borrows);
+        } else {
+            return Result.error("未查询到借阅信息");
+        }
+    }
 }

@@ -27,7 +27,6 @@
             <template slot='title'>
               <span class="parent-menu">读者借阅</span>
             </template>
-            <el-menu-item :index="`/mainMenu/${account}/${password}/${card_num}/bookSearch`">书籍查询</el-menu-item>
             <el-menu-item :index="`/mainMenu/${account}/${password}/${card_num}/bookBorrow`">书籍借阅</el-menu-item>
             <el-menu-item :index="`/mainMenu/${account}/${password}/${card_num}/bookReturn`">书籍归还</el-menu-item>
           </el-submenu>

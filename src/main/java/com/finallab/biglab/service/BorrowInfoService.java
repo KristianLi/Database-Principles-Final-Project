@@ -16,4 +16,5 @@ public interface BorrowInfoService {
     public findBorrow[] getFindBorrorInfoByName(String reader_name);
     public findBorrow[] getFindBorrowInfoByDepartment(String department);
     public findBorrow[] getFindBorrowInfoByPhone(String phone);
+    public findBorrow[] MynotReturn(String card_num);
 }
