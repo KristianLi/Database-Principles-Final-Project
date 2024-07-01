@@ -16,25 +16,37 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/ISBN")
-    public Result<Book> getBookMessage1(@RequestParam String ISBN) {
-        Book book = bookService.getBookInfoByISBN(ISBN);
-        if (book != null) {
-            return Result.success(book);
+    public Result<Book[]> getBookMessage1(@RequestParam String ISBN) {
+        ISBN='%' + ISBN + '%';
+        Book[] books = bookService.getBookInfoByISBN(ISBN);
+        if (books != null) {
+            return Result.success(books);
         } else {
             return Result.error("未找到书籍");
         }
     }
     @GetMapping("/name")
-    public Result<Book> getBookMessage2(@RequestParam String book_name) {
-        Book book = bookService.getBookInfoByBookName(book_name);
-        if (book != null) {
-            return Result.success(book);
+    public Result<Book[]> getBookMessage2(@RequestParam String book_name) {
+        book_name='%' + book_name + '%';
+        Book[] books = bookService.getBookInfoByBookName(book_name);
+        if (books != null) {
+            return Result.success(books);
+        } else {
+            return Result.error("未找到书籍");
+        }
+    }
+    @GetMapping("/author")
+    public Result<Book[]> getBookMessage3(@RequestParam String author) {
+        author='%' + author + '%';
+        Book[] books = bookService.getBookInfoByAuthor(author);
+        if (books != null) {
+            return Result.success(books);
         } else {
             return Result.error("未找到书籍");
         }
     }
     @GetMapping("/all")
-    public Result<Book[]> getBookMessage3() {
+    public Result<Book[]> getBookMessage4() {
         Book[] books = bookService.getAllBookInfo();
         if (books != null) {
             return Result.success(books);

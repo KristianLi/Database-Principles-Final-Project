@@ -8,10 +8,12 @@ import org.apache.ibatis.annotations.Select;
 public interface BookMapper {
     @Select("select * from book_info")
     public Book[] getAllBookInfo();
-    @Select("select * from book_info where ISBN=#{ISBN}")
-    public Book getBookInfoByISBN(String ISBN);
-    @Select("select * from book_info where book_name=#{book_name}")
-    public Book getBookInfoByBookName(String book_name);
+    @Select("select * from book_info where ISBN like #{ISBN}")
+    public Book[] getBookInfoByISBN(String ISBN);
+    @Select("select * from book_info where book_name like #{book_name}")
+    public Book[] getBookInfoByBookName(String book_name);
+    @Select("select * from book_info where author like #{author}")
+    public Book[] getBookInfoByAuthor(String author);
     @Select("update book_info set avai_num=avai_num-1,borrow_num=borrow_num+1 where ISBN=#{ISBN}")
     public void borrowBook(String ISBN);
     @Select("insert into borrow_info(card_num,ISBN,borrow_date,due_date) values(#{card_num},#{ISBN},#{borrow_date},#{due_date})")

@@ -10,16 +10,20 @@ public class BookServicelmpl implements BookService {
     @Autowired
     private BookMapper bookMapper;
     @Override
-    public Book getBookInfoByISBN(String ISBN) {
+    public Book[] getBookInfoByISBN(String ISBN) {
         return bookMapper.getBookInfoByISBN(ISBN);
     }
     @Override
-    public Book getBookInfoByBookName(String book_name) {
+    public Book[] getBookInfoByBookName(String book_name) {
         return bookMapper.getBookInfoByBookName(book_name);
     }
     @Override
     public Book[] getAllBookInfo() {
         return bookMapper.getAllBookInfo();
+    }
+    @Override
+    public Book[] getBookInfoByAuthor(String author) {
+        return bookMapper.getBookInfoByAuthor(author);
     }
     @Override
     public void borrowBook(String ISBN) {
