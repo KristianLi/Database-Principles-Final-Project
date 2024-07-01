@@ -23,12 +23,20 @@ public class ReaderServicelmpl implements ReaderService {
         return readerMapper.isAdmin(account);
     }
     @Override
-    public void addReader(String account,String card_num,String name,String gender,String title,String department,String phone){
-        readerMapper.addReader(account,card_num,name,gender,title,department,phone);
+    public void addReader(String card_num,String name,String gender,String title,String borrow_num,String borrowed_num,String department,String phone){
+        readerMapper.addReader(card_num,name,gender,title,borrow_num,borrowed_num,department,phone);
+    }
+    @Override
+    public void updateReader(String card_num,String name,String gender,String title,String borrow_num,String borrowed_num,String department,String phone) {
+        readerMapper.updateReader(card_num, name, gender, title, borrow_num, borrowed_num, department, phone);
     }
     @Override
     public Reader[] getReaderInfoByCardNum(String card_num){
         return readerMapper.getReaderInfoByCardNum(card_num);
+    }
+    @Override
+    public Reader getOneReaderInfoByCardNum(String card_num){
+        return readerMapper.getOneReaderInfoByCardNum(card_num);
     }
     @Override
     public Reader[] getReaderInfoByname(String name){

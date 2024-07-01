@@ -18,7 +18,7 @@ public class ReaderController {
         if (reader != null) {
             return Result.success(reader);
         } else {
-            return Result.error("Reader not found");
+            return Result.error("未找到用户");
         }
     }
     @PostMapping("/delete")
@@ -30,14 +30,22 @@ public class ReaderController {
         return Result.success();
     }
     @PostMapping("/add")
-    public Result addReader(@RequestParam String account,@RequestParam String card_num,@RequestParam String name,@RequestParam String gender,@RequestParam String title,@RequestParam String department,@RequestParam String phone) {
+    public Result addReader(@RequestParam String account,@RequestParam String card_num,@RequestParam String name,@RequestParam String gender,@RequestParam String title,@RequestParam String borrow_num,@RequestParam String borrowed_num,@RequestParam String department,@RequestParam String phone) {
         if (readerService.isAdmin(account) == 0) {
             return Result.error("无权限添加用户");
         }
-        if(readerService.getReaderInfoByCardNum(card_num) != null) {
+        if(readerService.getOneReaderInfoByCardNum(card_num) != null) {
             return Result.error("该用户已存在");
         }
-        readerService.addReader(account,card_num,name,gender,title,department,phone);
+        readerService.addReader(card_num,name,gender,title,borrow_num,borrowed_num,department,phone);
+        return Result.success();
+    }
+    @PostMapping("/update")
+    public Result updateReader(@RequestParam String account,@RequestParam String card_num,@RequestParam String name,@RequestParam String gender ,@RequestParam String title,@RequestParam String borrow_num,@RequestParam String borrowed_num,@RequestParam String department,@RequestParam String phone) {
+        if (readerService.isAdmin(account) == 0) {
+            return Result.error("无权限修改用户");
+        }
+        readerService.updateReader(card_num,name,gender,title,borrow_num,borrowed_num,department,phone);
         return Result.success();
     }
     @GetMapping("/card_num")
