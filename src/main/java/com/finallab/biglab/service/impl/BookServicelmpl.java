@@ -14,6 +14,10 @@ public class BookServicelmpl implements BookService {
         return bookMapper.getBookInfoByISBN(ISBN);
     }
     @Override
+    public Book getOneBookInfoByISBN(String ISBN) {
+        return bookMapper.getOneBookInfoByISBN(ISBN);
+    }
+    @Override
     public Book[] getBookInfoByBookName(String book_name) {
         return bookMapper.getBookInfoByBookName(book_name);
     }

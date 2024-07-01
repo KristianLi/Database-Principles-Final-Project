@@ -112,7 +112,7 @@ public class BookController {
         if(ISBN == null || book_name == null || publisher == null || author == null || avai_num < 0 || borrow_num < 0 || can_borrow < 0) {
             return Result.error("非法输入");
         }
-        if(bookService.getBookInfoByISBN(ISBN) != null) {
+        if(bookService.getOneBookInfoByISBN(ISBN) != null) {
             return Result.error("书籍已存在");
         }
         bookService.addBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
@@ -126,7 +126,7 @@ public class BookController {
         if(ISBN == null || book_name == null || publisher == null || author == null || avai_num < 0 || borrow_num < 0 || can_borrow < 0) {
             return Result.error("非法输入");
         }
-        if(bookService.getBookInfoByISBN(ISBN) == null) {
+        if(bookService.getOneBookInfoByISBN(ISBN) == null) {
             return Result.error("未找到书籍");
         }
         bookService.updateBook(ISBN, book_name, publisher, author, avai_num, borrow_num, can_borrow);
@@ -137,7 +137,7 @@ public class BookController {
         if(bookService.isAdmin(account)==0){
             return Result.error("无权限删除书籍");
         }
-        if(bookService.getBookInfoByISBN(ISBN) == null) {
+        if(bookService.getOneBookInfoByISBN(ISBN) == null) {
             return Result.error("未找到书籍");
         }
         bookService.deleteBook(ISBN);

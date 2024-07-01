@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private UserService userService;
+    @PostMapping("/userinfo")
+    public Result<User> userinfo(String account){
+        if(account==null)return Result.error("用户名不能为空");
+        User u=userService.findByaccount(account);
+        if(u==null)return Result.error("用户不存在");
+        return Result.success(u);
+    }
 
     @PostMapping("/register")
     public Result register(String account,String password,String card_num){

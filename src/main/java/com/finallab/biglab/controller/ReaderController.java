@@ -13,8 +13,8 @@ public class ReaderController {
     private ReaderService readerService;
 
     @GetMapping("/info")
-    public Result<Reader> getReaderMessage(@RequestParam String account,@RequestParam String password) {
-        Reader reader = readerService.getReaderInfo(account,password);
+    public Result<Reader[]> getReaderMessage() {
+        Reader[] reader = readerService.getReaderInfo();
         if (reader != null) {
             return Result.success(reader);
         } else {
@@ -39,5 +39,45 @@ public class ReaderController {
         }
         readerService.addReader(account,card_num,name,gender,title,department,phone);
         return Result.success();
+    }
+    @GetMapping("/card_num")
+    public Result<Reader[]> getReaderMessage1(@RequestParam String card_num) {
+        card_num='%' + card_num + '%';
+        Reader[] readers = readerService.getReaderInfoByCardNum(card_num);
+        if (readers != null) {
+            return Result.success(readers);
+        } else {
+            return Result.error("未找到用户");
+        }
+    }
+    @GetMapping("/name")
+    public Result<Reader[]> getReaderMessage2(@RequestParam String name) {
+        name='%' + name + '%';
+        Reader[] readers = readerService.getReaderInfoByname(name);
+        if (readers != null) {
+            return Result.success(readers);
+        } else {
+            return Result.error("未找到用户");
+        }
+    }
+    @GetMapping("/department")
+    public Result<Reader[]> getReaderMessage3(@RequestParam String department) {
+        department='%' + department + '%';
+        Reader[] readers = readerService.getReaderInfoByDepartment(department);
+        if (readers != null) {
+            return Result.success(readers);
+        } else {
+            return Result.error("未找到用户");
+        }
+    }
+    @GetMapping("/phone")
+    public Result<Reader[]> getReaderMessage4(@RequestParam String phone) {
+        phone='%' + phone + '%';
+        Reader[] readers = readerService.getReaderInfoByPhone(phone);
+        if (readers != null) {
+            return Result.success(readers);
+        } else {
+            return Result.error("未找到用户");
+        }
     }
 }

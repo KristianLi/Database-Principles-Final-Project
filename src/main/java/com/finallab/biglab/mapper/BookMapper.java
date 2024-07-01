@@ -10,6 +10,8 @@ public interface BookMapper {
     public Book[] getAllBookInfo();
     @Select("select * from book_info where ISBN like #{ISBN}")
     public Book[] getBookInfoByISBN(String ISBN);
+    @Select("select * from book_info where ISBN=#{ISBN}")
+    public Book getOneBookInfoByISBN(String ISBN);
     @Select("select * from book_info where book_name like #{book_name}")
     public Book[] getBookInfoByBookName(String book_name);
     @Select("select * from book_info where author like #{author}")

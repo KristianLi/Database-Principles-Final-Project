@@ -5,6 +5,7 @@ import com.finallab.biglab.pojo.Book;
 public interface BookService {
     public Book[] getAllBookInfo();
     public Book[] getBookInfoByISBN(String ISBN);
+    public Book getOneBookInfoByISBN(String ISBN);
     public Book[] getBookInfoByBookName(String book_name);
     public Book[] getBookInfoByAuthor(String author);
     public void borrowBook(String ISBN);
