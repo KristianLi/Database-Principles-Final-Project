@@ -11,11 +11,11 @@
 
         <div class="button_container">
           <el-button v-if="isLogin" id="btn" type="primary" @click="login()">登录</el-button>
-          <el-button v-else id="register-btn" type="primary" @click="register()">注册</el-button>
+<!--          <el-button v-else id="register-btn" type="primary" @click="register()">注册</el-button>-->
         </div>
 
         <div class="switch_container">
-          <el-link @click="toggleForm">{{ isLogin ? '没有账号？注册' : '已有账号？登录' }}</el-link>
+<!--          <el-link @click="toggleForm">{{ isLogin ? '没有账号？注册' : '已有账号？登录' }}</el-link>-->
         </div>
       </div>
     </div>
